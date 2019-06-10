@@ -126,9 +126,20 @@ read_char:
 	pop rax 
 	ret
 
+;rdi - pointer to string, rsi - pointer to buffer
+string_copy:
+ .copy_loop:
+  mov al, byte [rdi]
+  mov byte [rsi], al
+  inc rdi
+  inc rsi
+  test al, al
+  jnz .copy_loop
+  ret
+
 ;rdi - pointer to string, rsi - pointer to buffer, rdx - buffer length
 ;returns: pointer to buffer or 0 if buffer is too short
-string_copy: 
+str_copy: 
 	push rsi 
 	call string_length 
 	cmp rax, rdx 
