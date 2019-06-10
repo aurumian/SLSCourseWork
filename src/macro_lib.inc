@@ -34,7 +34,7 @@
  %define _lw wh_ %+ %2
 
  ; implementation start
- xt_ %+ %2 : dq docol
+ xt_ %+ %2 : dq i_docol
 %endmacro
 
 %macro colon 2
@@ -59,7 +59,7 @@
 %macro branch0 1
  dq xt_branch0
  dq %1
-%endmcaro
+%endmacro
 
 %macro const 2
  %defstr %%__cnst_str %1

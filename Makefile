@@ -11,7 +11,7 @@ LIBS        =
 
 all: bin/forthress
 
-bin/forthress: build/forthress.o build/util.o
+bin/forthress: build/forthress.o build/lib.o
 	mkdir -p bin
 	$(LINKER) -o bin/forthress  $(LINKERFLAGS) -o bin/forthress build/forthress.o build/lib.o $(LIBS)
 

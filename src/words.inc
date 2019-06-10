@@ -1,4 +1,10 @@
-%include "macro_lib.inc"
+
+
+native "docol", docol
+ rpush pc
+ add w, 8
+ mov pc, w
+ jmp next
 
 ; (a -- )
 native "drop", drop
@@ -105,7 +111,7 @@ native "land", land
  pop rax
  test rax, rax
  jz .false
- pop rax, rax
+ pop rax
  jz .false
  push 1
  jmp next
@@ -274,7 +280,7 @@ colon "printc", printc
  branch0 .exit
  dq xt_dup, xt_fetchchar, xt_emit
  dq xt_lit, 1, xt_plus
- dq xt_pop_r, xt_lit, 1, xtminus, xt_push_r
+ dq xt_pop_r, xt_lit, 1, xt_minus, xt_push_r
  branch .loop
 
 .exit:
@@ -322,7 +328,7 @@ native "cfa", cfa
  jmp next
 
 section .data
- stackBase: dq 0
+ stack_base: dq 0
 
 native "lit", lit
  push qword [pc]
@@ -349,7 +355,7 @@ native "init", init
  mov qword [state], 0
  mov rstack, rstackStr
  mov pc, interpreter_stub
- cmp qword [stackBase], 0
+ cmp qword [stack_base], 0
  je .first
  mov rsp, [stack_base]
  jmp next
@@ -410,7 +416,7 @@ colon "interpret", interpret
  dq xt_comma
  dq xt_exit
 
- .number
+ .number:
  dq xt_drop, xt_dup
  dq xt_number
  branch0 .no_word
